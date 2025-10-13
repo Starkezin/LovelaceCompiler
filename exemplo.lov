@@ -1,0 +1,13 @@
+main ()
+    begin
+        let Float resultado;
+        resultado := soma(99.90, 5.4);
+        print resultado;
+    end
+
+def Float soma (Float arg1, Float arg2)
+    begin 
+        
+        result := arg1 + arg2;
+        return result;
+    end
