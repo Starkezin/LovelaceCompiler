@@ -1,0 +1,129 @@
+options {
+    OUTPUT_DIRECTORY = "javaFiles";
+}
+
+PARSER_BEGIN(Parser)
+import java.io.*;
+public class Parser {
+
+  public static void main(String args[]) throws ParseException,IOException {
+    
+ Parser parser = new Parser(new FileInputStream(args[0]));
+ parser.Parser();
+  }
+
+}
+
+
+PARSER_END(Parser)
+
+
+
+
+SKIP :
+{
+  " "
+| "\t"
+| "\n"
+| "\r"
+}
+
+TOKEN :
+{
+  <MAIN: "main">
+|  <LET: "let">
+| <APAR:"(">
+| <FPAR:")">
+| <PRINT: "print">
+| <ATRIB: ":=">
+| <PV: ";">
+| <BEGIN: "begin">
+| <END: "end">
+| <FLOAT: "Float">
+| <BOOL: "Bool">
+| <VOID: "Void">
+
+| <SUM: "+">
+| <SUB: "-">
+| <MUL: "*">
+| <DIV: "/">
+| <AND: "&&">
+| <OR: "||">
+| <LESS: "<">
+| <GREATHER: ">">
+| <EQUAL: "==">
+
+| <IF: "if">
+| <WHILE: "while">
+
+| <RETURN: "return">
+| <TRUE: "true">
+| <FALSE: "false">
+| <VIRG: ",">
+| <DEF: "def">
+
+
+}
+
+TOKEN :
+{
+  <NUM : (["0"-"9", "."])+>
+ |< ID: ["a"-"z","A"-"Z"] ( ["a"-"z","A"-"Z","0"-"9"])*>
+
+}
+
+
+// Parser -> "main" "{" COMANDOS  "}"
+
+void Parser () :
+{}
+{
+
+<MAIN> <APAR> <FPAR> <BEGIN> Comandos() <END>
+<EOF>   
+
+}
+
+
+
+// COMANDOS -> COM ";"  COMANDOS'
+
+void Comandos () :
+{}
+{
+
+ Com() <PV> ComandosL()
+
+}
+
+// COMANDOS'->   COM ";" COMANDOS' | epsilon
+
+void ComandosL () :
+{}
+{
+
+ ( Com()  <PV>  ComandosL())?
+
+}
+
+
+
+// COM -> id ":=" EXP | "print" "(" EXP ")"
+
+void Com () :
+{}
+{
+
+  (<ID> <ATRIB> (Exp()) )
+
+
+}
+
+
+// EXP -> num | id
+
+void Exp () :
+{}
+{
+    <NUM> | <ID>
+}
