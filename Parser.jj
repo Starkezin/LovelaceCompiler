@@ -1,3 +1,7 @@
+options {
+    OUTPUT_DIRECTORY = "javaFiles";
+}
+
 PARSER_BEGIN(Parser)
 import java.io.*;
 public class Parser {
@@ -10,7 +14,11 @@ public class Parser {
 
 }
 
+
 PARSER_END(Parser)
+
+
+
 
 SKIP :
 {
@@ -23,6 +31,7 @@ SKIP :
 TOKEN :
 {
   <MAIN: "main">
+|  <LET: "let">
 | <APAR:"(">
 | <FPAR:")">
 | <PRINT: "print">
@@ -33,7 +42,6 @@ TOKEN :
 | <FLOAT: "Float">
 | <BOOL: "Bool">
 | <VOID: "Void">
-| <PRINT: "print">
 
 | <SUM: "+">
 | <SUB: "-">
@@ -106,7 +114,8 @@ void Com () :
 {}
 {
 
-  (<ID> <ATRIB> Exp()) | (<PRINT> <APAR> Exp() <FPAR>) 
+  (<ID> <ATRIB> (Exp()) )
+
 
 }
 
