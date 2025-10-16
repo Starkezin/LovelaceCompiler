@@ -25,8 +25,8 @@ TOKEN :
 {
   <MAIN: "main">
 | <LET: "let">
-|<APAR: "(">
-|<FPAR: ")">  
+| <APAR: "(">
+| <FPAR: ")">  
 | <BEGIN: "begin">
 | <END: "end">
 | <FLINE: ";">
